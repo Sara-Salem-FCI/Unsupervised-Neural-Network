@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Section, SectionHeader, Card } from '../components/ui/Section';
 import { TeX } from '../components/ui/Math';
 import {
@@ -11,7 +11,7 @@ import {
   BookOpen,
   ArrowRight,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 interface ChatMessage {
   id: string;
@@ -78,6 +78,16 @@ export function TutorPage() {
     },
   ]);
   const [inputText, setInputText] = useState('');
+  const [searchParams] = useSearchParams();
+  const processedParamRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const qParam = searchParams.get('q');
+    if (qParam && qParam !== processedParamRef.current) {
+      processedParamRef.current = qParam;
+      setInputText(`Can you explain: "${qParam}"?`);
+    }
+  }, [searchParams]);
 
   const handleSend = (textToSend?: string) => {
     const q = textToSend || inputText;

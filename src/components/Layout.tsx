@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { TutorButton } from './TutorButton';
+import { SelectionZoomLens } from './ui/SelectionZoomLens';
 import { useEffect } from 'react';
 
 export function Layout() {
@@ -19,6 +20,7 @@ export function Layout() {
       </main>
       <Footer />
       <TutorButton />
+      <SelectionZoomLens />
     </div>
   );
 }

@@ -21,6 +21,25 @@
     overflow-x: hidden;
   }
 
+  /* Yellow Highlighter Selection across entire website */
+  ::selection {
+    background-color: #fde047 !important; /* Vibrant fluorescent highlighter yellow */
+    color: #020617 !important; /* Deep dark text for ultra-clear contrast */
+    text-shadow: none !important;
+  }
+
+  ::-moz-selection {
+    background-color: #fde047 !important;
+    color: #020617 !important;
+    text-shadow: none !important;
+  }
+
+  /* KaTeX selection support */
+  .katex ::selection {
+    background-color: #fde047 !important;
+    color: #020617 !important;
+  }
+
   /* KaTeX overrides for dark theme */
   .katex {
     color: #e2e8f0 !important;
@@ -209,6 +228,25 @@
     transform: scale(2.4);
     opacity: 0;
   }
+}
+
+@keyframes zoom-in-bounce {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -85%) scale(0.82);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -104%) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}
+
+.animate-zoom-lens {
+  animation: zoom-in-bounce 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-float-slow {
