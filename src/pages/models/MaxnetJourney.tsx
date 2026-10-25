@@ -44,11 +44,11 @@ export function MaxnetJourney() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState<'visual' | 'math'>('visual');
 
-  // Interactive Calculator State (Chapter 4)
+  // Interactive Calculator State
   const [calcInputs, setCalcInputs] = useState<number[]>([0.8, 0.5, 0.2]);
   const [calcEps, setCalcEps] = useState(0.2);
 
-  // Quiz State (Chapter 10)
+  // Quiz State
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
   const [quizSubmitted, setQuizSubmitted] = useState<Record<number, boolean>>({});
 
@@ -180,10 +180,10 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 1: The Problem */}
+      {/* Section 1: The Problem */}
       <Section>
         <SectionHeader
-          title="Chapter 1 — The Problem That Needed Solving"
+          title="The Problem That Needed Solving"
           subtitle="Selecting the strongest candidate without centralized supervision or sorting routines."
           badge="Context & Motivation"
           badgeColor="from-amber-500 to-yellow-500"
@@ -232,10 +232,10 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 2: Intuition */}
+      {/* Section 2: Intuition */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 2 — Intuition: Gladiators in the Arena"
+          title="Intuition: Gladiators in the Arena"
           subtitle="Every neuron reinforces its own signal while exerting equal suppression on every rival."
           badge="Mental Model"
           badgeColor="from-amber-500 to-yellow-500"
@@ -278,28 +278,28 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 3: Architecture */}
+      {/* Section 3: Architecture */}
       <Section>
         <SectionHeader
-          title="Chapter 3 — Architecture: Enter the Network"
+          title="Architecture: Enter the Network"
           subtitle="A recurrent neural ring with excitatory self-loops and symmetric lateral inhibition."
           badge="Wiring Diagram"
           badgeColor="from-amber-500 to-yellow-500"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <Card className="flex flex-col items-center justify-center p-6">
+          <Card className="flex flex-col items-center justify-center p-6 border-amber-500/20">
             <div className="w-full text-center text-xs text-text-dim font-mono mb-4">
               INTERCONNECTED TOPOLOGY (\(m = 4\))
             </div>
             <svg viewBox="0 0 400 320" className="w-full max-w-md h-auto">
               <defs>
                 <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" opacity="0.6" />
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" opacity="0.8" />
                 </marker>
               </defs>
 
-              {/* Inhibitory cross-connections */}
+              {/* Inhibitory cross-connections with active synaptic flow animation */}
               {[
                 [100, 80, 300, 80],
                 [100, 80, 300, 240],
@@ -316,8 +316,7 @@ export function MaxnetJourney() {
                   y2={y2}
                   stroke="#f59e0b"
                   strokeWidth="1.5"
-                  strokeDasharray="4 4"
-                  opacity="0.3"
+                  className="synapse-flow opacity-60"
                 />
               ))}
 
@@ -334,6 +333,7 @@ export function MaxnetJourney() {
                   fill="none"
                   stroke="#10b981"
                   strokeWidth="2"
+                  className="synapse-flow-fast opacity-80"
                   markerEnd="url(#arrow)"
                 />
               ))}
@@ -344,40 +344,54 @@ export function MaxnetJourney() {
                 { cx: 300, cy: 80, label: 'Neuron 2', val: simState.activations[1] ?? 0.5 },
                 { cx: 300, cy: 240, label: 'Neuron 3', val: simState.activations[2] ?? 0.3 },
                 { cx: 100, cy: 240, label: 'Neuron 4', val: simState.activations[3] ?? 0.1 },
-              ].map((n, i) => (
-                <g key={i}>
-                  <circle
-                    cx={n.cx}
-                    cy={n.cy}
-                    r={26 + (n.val > 0 ? n.val * 12 : 0)}
-                    fill="#141530"
-                    stroke={NEURON_COLORS[i]}
-                    strokeWidth={n.val > 0 ? '3' : '1'}
-                    className="transition-all duration-300"
-                  />
-                  <text
-                    x={n.cx}
-                    y={n.cy - 4}
-                    textAnchor="middle"
-                    fill="#f1f5f9"
-                    fontSize="11"
-                    fontFamily="monospace"
-                    fontWeight="bold"
-                  >
-                    a_{i + 1}
-                  </text>
-                  <text
-                    x={n.cx}
-                    y={n.cy + 10}
-                    textAnchor="middle"
-                    fill={n.val > 0 ? '#fbbf24' : '#64748b'}
-                    fontSize="10"
-                    fontFamily="monospace"
-                  >
-                    {n.val.toFixed(2)}
-                  </text>
-                </g>
-              ))}
+              ].map((n, i) => {
+                const isWinningNeuron = simState.converged && n.val > 1e-7;
+                return (
+                  <g key={i}>
+                    {isWinningNeuron && (
+                      <circle
+                        cx={n.cx}
+                        cy={n.cy}
+                        r={34 + n.val * 14}
+                        fill="none"
+                        stroke={NEURON_COLORS[i]}
+                        strokeWidth="2"
+                        className="beacon-aura opacity-60"
+                      />
+                    )}
+                    <circle
+                      cx={n.cx}
+                      cy={n.cy}
+                      r={26 + (n.val > 0 ? n.val * 12 : 0)}
+                      fill="#141530"
+                      stroke={NEURON_COLORS[i]}
+                      strokeWidth={n.val > 0 ? '3' : '1'}
+                      className="transition-all duration-300"
+                    />
+                    <text
+                      x={n.cx}
+                      y={n.cy - 4}
+                      textAnchor="middle"
+                      fill="#f1f5f9"
+                      fontSize="11"
+                      fontFamily="monospace"
+                      fontWeight="bold"
+                    >
+                      a_{i + 1}
+                    </text>
+                    <text
+                      x={n.cx}
+                      y={n.cy + 10}
+                      textAnchor="middle"
+                      fill={n.val > 0 ? '#fbbf24' : '#64748b'}
+                      fontSize="10"
+                      fontFamily="monospace"
+                    >
+                      {n.val.toFixed(2)}
+                    </text>
+                  </g>
+                );
+              })}
             </svg>
 
             <div className="flex gap-4 text-xs font-mono mt-4">
@@ -410,10 +424,10 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 4: Mathematical Foundations */}
+      {/* Section 4: Mathematical Foundations */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 4 — Mathematical Foundations"
+          title="Mathematical Foundations"
           subtitle="Formulation, convergence boundaries, and exact iteration rules."
           badge="Mathematical Rigor"
           badgeColor="from-amber-500 to-yellow-500"
@@ -528,10 +542,10 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 5: Live Algorithm Visualizer */}
+      {/* Section 5: Live Algorithm Visualizer */}
       <Section>
         <SectionHeader
-          title="Chapter 5 — The Live Algorithm: Interactive Arena"
+          title="The Live Algorithm: Interactive Arena"
           subtitle="Watch neural activations battle in real time. Manipulate inputs and parameters, inspect step updates, and witness convergence."
           badge="Interactive Laboratory"
           badgeColor="from-amber-500 to-yellow-500"
@@ -773,10 +787,10 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 6: Verifiable Worked Numerical Example */}
+      {/* Section 6: Verifiable Worked Numerical Example */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 6 — Complete Worked Numerical Example"
+          title="Complete Worked Numerical Example"
           subtitle="Verify every intermediate calculation step by step with four neurons."
           badge="Manual Verification"
           badgeColor="from-amber-500 to-yellow-500"
@@ -831,10 +845,10 @@ export function MaxnetJourney() {
         </div>
       </Section>
 
-      {/* Chapter 7: From Theory to Real Systems */}
+      {/* Section 7: From Theory to Real Systems */}
       <Section>
         <SectionHeader
-          title="Chapter 7 — From Theory to Real-World Systems"
+          title="From Theory to Real-World Systems"
           subtitle="Where competitive subnets operate in signal processing and optical neuromorphics."
           badge="Applied Engineering"
           badgeColor="from-amber-500 to-yellow-500"
@@ -884,10 +898,10 @@ export function MaxnetJourney() {
         </InfoBox>
       </Section>
 
-      {/* Chapter 8: Implementation From Scratch */}
+      {/* Section 8: Implementation From Scratch */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 8 — Implementation From Scratch"
+          title="Implementation From Scratch"
           subtitle="Clean, idiomatic Python with NumPy using the O(m) sum optimization."
           badge="Code Laboratory"
           badgeColor="from-amber-500 to-yellow-500"
@@ -964,10 +978,10 @@ def maxnet(activations: np.ndarray, epsilon: float = None, max_iter: int = 100) 
         </div>
       </Section>
 
-      {/* Chapter 9: Real Function Behind the Model */}
+      {/* Section 9: Real Function Behind the Model */}
       <Section>
         <SectionHeader
-          title="Chapter 9 — The Real Function Behind the Model"
+          title="The Real Function Behind the Model"
           subtitle="How modern software frameworks replace iterative WTA selection."
           badge="Software APIs"
           badgeColor="from-amber-500 to-yellow-500"
@@ -1002,10 +1016,10 @@ def maxnet(activations: np.ndarray, epsilon: float = None, max_iter: int = 100) 
         </div>
       </Section>
 
-      {/* Chapter 10: Strengths, Weaknesses, Alternatives */}
+      {/* Section 10: Strengths, Weaknesses, Alternatives */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 10 — Strengths, Weaknesses, and Alternatives"
+          title="Strengths, Weaknesses, and Alternatives"
           subtitle="Honest technical evaluation of MAXNET in computation."
           badge="Critique & Comparison"
           badgeColor="from-amber-500 to-yellow-500"
@@ -1038,10 +1052,10 @@ def maxnet(activations: np.ndarray, epsilon: float = None, max_iter: int = 100) 
         </div>
       </Section>
 
-      {/* Chapter 11: Knowledge Check */}
+      {/* Section 11: Knowledge Check */}
       <Section>
         <SectionHeader
-          title="Chapter 11 — Knowledge Check"
+          title="Interactive Knowledge Check"
           subtitle="Test your comprehension of MAXNET dynamics, parameter constraints, and edge cases."
           badge="Assessment"
           badgeColor="from-amber-500 to-yellow-500"

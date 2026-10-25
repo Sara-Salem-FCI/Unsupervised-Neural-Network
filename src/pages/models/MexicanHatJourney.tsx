@@ -121,10 +121,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 1: The Problem */}
+      {/* Section 1: The Problem */}
       <Section>
         <SectionHeader
-          title="Chapter 1 — The Problem That Needed Solving"
+          title="The Problem That Needed Solving"
           subtitle="How biological sensory maps establish sharp localized activity without global arbitrators."
           badge="Biological Roots"
           badgeColor="from-emerald-500 to-teal-500"
@@ -170,10 +170,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 2: Intuition */}
+      {/* Section 2: Intuition */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 2 — Intuition: Cheering Neighbors, Jeering Crowd"
+          title="Intuition: Cheering Neighbors, Jeering Crowd"
           subtitle="Spatial balance between local community cooperation and global perimeter competition."
           badge="Mental Model"
           badgeColor="from-emerald-500 to-teal-500"
@@ -206,10 +206,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 3: Architecture */}
+      {/* Section 3: Architecture */}
       <Section>
         <SectionHeader
-          title="Chapter 3 — Architecture: Enter the Field"
+          title="Architecture: Enter the Field"
           subtitle="Explore the spatial coupling weights emitted by a selected neuron across a 1D neural array."
           badge="Network Topology"
           badgeColor="from-emerald-500 to-teal-500"
@@ -249,18 +249,23 @@ export function MexicanHatJourney() {
                         : 'bg-void-200 border-white/5'
                     }`}
                   >
-                    <div
-                      className={`w-9 h-9 rounded-full flex items-center justify-center font-mono text-xs font-bold mb-1 ${
-                        isSelected
-                          ? 'bg-emerald-400 text-void-500'
-                          : isExcitatory
-                          ? 'bg-emerald-500/30 text-emerald-300'
-                          : isInhibitory
-                          ? 'bg-rose-500/30 text-rose-300'
-                          : 'bg-white/10 text-text-dim'
-                      }`}
-                    >
-                      N{idx + 1}
+                    <div className="relative mb-1">
+                      {isSelected && (
+                        <div className="absolute inset-0 rounded-full border-2 border-emerald-400 beacon-aura" />
+                      )}
+                      <div
+                        className={`w-9 h-9 rounded-full flex items-center justify-center font-mono text-xs font-bold ${
+                          isSelected
+                            ? 'bg-emerald-400 text-void-500 shadow-lg shadow-emerald-400/50'
+                            : isExcitatory
+                            ? 'bg-emerald-500/30 text-emerald-300'
+                            : isInhibitory
+                            ? 'bg-rose-500/30 text-rose-300'
+                            : 'bg-white/10 text-text-dim'
+                        }`}
+                      >
+                        N{idx + 1}
+                      </div>
                     </div>
                     <div className="text-[10px] font-mono text-text-dim">dist: {dist}</div>
                     <div
@@ -296,10 +301,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 4: Mathematical Foundations */}
+      {/* Section 4: Mathematical Foundations */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 4 — Mathematical Foundations"
+          title="Mathematical Foundations"
           subtitle="Formulating the Difference of Gaussians (DoG) and analytical zero-crossings."
           badge="Mathematical Formulation"
           badgeColor="from-emerald-500 to-teal-500"
@@ -362,10 +367,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 5: Live Interactive Explorer */}
+      {/* Section 5: Live Interactive Explorer */}
       <Section>
         <SectionHeader
-          title="Chapter 5 — The Live Algorithm: Field Explorer"
+          title="The Live Algorithm: Field Explorer"
           subtitle="Manipulate amplitudes and spatial widths in real time. Inspect 1D profiles, 2D heatmaps, and compare against Gaussian kernels."
           badge="Interactive Laboratory"
           badgeColor="from-emerald-500 to-teal-500"
@@ -539,10 +544,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 6: Verifiable Worked Numerical Example */}
+      {/* Section 6: Verifiable Worked Numerical Example */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 6 — Complete Worked Numerical Example"
+          title="Complete Worked Numerical Example"
           subtitle="Hand-calculated coupling weights and dynamic state updates across 7 discrete neurons."
           badge="Manual Calculation"
           badgeColor="from-emerald-500 to-teal-500"
@@ -598,10 +603,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 7: Real-World Applications */}
+      {/* Section 7: Real-World Applications */}
       <Section>
         <SectionHeader
-          title="Chapter 7 — From Theory to Real-World Systems"
+          title="From Theory to Real-World Systems"
           subtitle="Computer vision edge operators and continuous cortical field theory."
           badge="Applied Engineering"
           badgeColor="from-emerald-500 to-teal-500"
@@ -644,10 +649,10 @@ export function MexicanHatJourney() {
         </div>
       </Section>
 
-      {/* Chapter 8: Implementation From Scratch */}
+      {/* Section 8: Implementation From Scratch */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 8 — Implementation From Scratch"
+          title="Implementation From Scratch"
           subtitle="Vectorized Python implementation with discrete spatial convolution."
           badge="Code Laboratory"
           badgeColor="from-emerald-500 to-teal-500"
@@ -694,10 +699,10 @@ def step_neural_field(u: np.ndarray, kernel: np.ndarray, decay: float = 0.1) -> 
         </div>
       </Section>
 
-      {/* Chapter 9: Strengths & Weaknesses */}
+      {/* Section 9: Strengths & Weaknesses */}
       <Section>
         <SectionHeader
-          title="Chapter 9 — Strengths, Weaknesses, and Comparisons"
+          title="Strengths, Weaknesses, and Comparisons"
           subtitle="Engineering assessment of lateral interaction kernels."
           badge="Tradeoffs"
           badgeColor="from-emerald-500 to-teal-500"
@@ -728,10 +733,10 @@ def step_neural_field(u: np.ndarray, kernel: np.ndarray, decay: float = 0.1) -> 
         </div>
       </Section>
 
-      {/* Chapter 10: Knowledge Check */}
+      {/* Section 10: Knowledge Check */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 10 — Knowledge Check"
+          title="Interactive Knowledge Check"
           subtitle="Test your grasp of lateral interaction mechanics."
           badge="Assessment"
           badgeColor="from-emerald-500 to-teal-500"

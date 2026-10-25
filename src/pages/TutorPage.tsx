@@ -127,7 +127,7 @@ export function TutorPage() {
         reply = {
           id: String(Date.now() + 1),
           sender: 'tutor',
-          text: `Regarding "${q}": In our verified curriculum, all four models—MAXNET (competitive winner-takes-all), Mexican Hat (spatial lateral field), SOM (unsupervised topology preservation), and Hamming Networks (associative binary matching)—are governed by precise mathematical laws. Please select one of the verified inquiry prompts below, or explore the dedicated model chapters.`,
+          text: `Regarding "${q}": In our verified curriculum, all four models—MAXNET (competitive winner-takes-all), Mexican Hat (spatial lateral field), SOM (unsupervised topology preservation), and Hamming Networks (associative binary matching)—are governed by precise mathematical laws. Please select one of the verified inquiry prompts below, or explore the dedicated model journeys.`,
           timestamp: 'Just now',
         };
       }

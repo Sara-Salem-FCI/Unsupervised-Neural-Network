@@ -84,10 +84,14 @@ export function LandingPage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <NeuralBackground />
 
+        {/* Ambient luminous glow circles */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-float-slow" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none animate-float-slow" style={{ animationDelay: '-3s' }} />
+
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 mb-8">
-            <Brain className="w-4 h-4 text-indigo-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-8 animate-float-slow shadow-lg shadow-indigo-500/10">
+            <Brain className="w-4 h-4 text-indigo-400 animate-pulse" />
             <span className="text-indigo-300 text-sm font-medium">Interactive Neural Network Explorer</span>
           </div>
 
@@ -169,7 +173,7 @@ export function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {models.map((model) => (
             <Link key={model.id} to={model.path} className="group">
-              <Card hover glow={model.color as any} className="h-full">
+              <Card hover glow={model.color as any} className="h-full shimmer-card">
                 <div className="flex items-start gap-4">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${model.gradient} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                     <model.icon className="w-6 h-6 text-white" />

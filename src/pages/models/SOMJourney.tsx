@@ -186,18 +186,36 @@ export function SOMJourney() {
         ctx.arc(sx, sy, 7, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Highlight its BMU
+        // Highlight its BMU with animated visual indicator
         const bmu = findBMU(somState, selectedPoint);
         const bmuWeight = somState.weights[bmu.row][bmu.col];
         const bmuScreen = toScreen(bmuWeight[0], bmuWeight[1]);
 
         ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
         ctx.moveTo(sx, sy);
         ctx.lineTo(bmuScreen.sx, bmuScreen.sy);
         ctx.stroke();
         ctx.setLineDash([]);
+
+        // Outer beacon aura around BMU
+        ctx.fillStyle = 'rgba(245, 158, 11, 0.25)';
+        ctx.beginPath();
+        ctx.arc(bmuScreen.sx, bmuScreen.sy, 16, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(bmuScreen.sx, bmuScreen.sy, 10, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.arc(bmuScreen.sx, bmuScreen.sy, 5, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       // 3. Draw Grid Lines between adjacent neurons
@@ -331,10 +349,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 1: The Problem */}
+      {/* Section 1: The Problem */}
       <Section>
         <SectionHeader
-          title="Chapter 1 — The Problem That Needed Solving"
+          title="The Problem That Needed Solving"
           subtitle="Extracting meaningful topological structure from high-dimensional manifolds without human labels."
           badge="Foundational Challenge"
           badgeColor="from-indigo-500 to-purple-500"
@@ -379,10 +397,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 2: Intuition */}
+      {/* Section 2: Intuition */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 2 — Intuition: The Elastic Net in Unknown Territory"
+          title="Intuition: The Elastic Net in Unknown Territory"
           subtitle="An elastic sheet of interconnected scouts stretching to cover the topography of data."
           badge="Mental Model"
           badgeColor="from-indigo-500 to-purple-500"
@@ -421,10 +439,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 3 & 4: Mathematics */}
+      {/* Section 4: Mathematics */}
       <Section>
         <SectionHeader
-          title="Chapter 4 — Mathematical Foundations of SOM"
+          title="Mathematical Foundations of SOM"
           subtitle="Every symbol, decay schedule, and weight update equation formalized."
           badge="Mathematical Foundations"
           badgeColor="from-indigo-500 to-purple-500"
@@ -488,10 +506,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 5: SOM Interactive Playground */}
+      {/* Section 5: SOM Interactive Playground */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 5 — The Live Algorithm: Interactive SOM Playground"
+          title="The Live Algorithm: Interactive SOM Playground"
           subtitle="Train a real Self-Organizing Map in your browser. Watch the 2D neural lattice unfold over complex synthetic manifolds."
           badge="Live Laboratory"
           badgeColor="from-indigo-500 to-purple-500"
@@ -624,11 +642,25 @@ export function SOMJourney() {
                 <span>
                   Status:{' '}
                   {somState.iteration >= maxSteps ? (
-                    <strong className="text-emerald-400">COMPLETE</strong>
+                    <span className="inline-flex items-center gap-1 text-emerald-400 font-bold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      COMPLETE
+                    </span>
                   ) : (
-                    <strong className="text-amber-400">TRAINING...</strong>
+                    <span className="inline-flex items-center gap-1 text-amber-400 font-bold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      TRAINING...
+                    </span>
                   )}
                 </span>
+              </div>
+
+              {/* Animated Progress Bar */}
+              <div className="w-full h-1.5 bg-void-200 rounded-full overflow-hidden mt-3">
+                <div
+                  className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-300 shadow-[0_0_8px_rgba(99,102,241,0.5)]"
+                  style={{ width: `${Math.min(100, (somState.iteration / maxSteps) * 100)}%` }}
+                />
               </div>
             </Card>
 
@@ -683,10 +715,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 6: Verifiable Worked Numerical Example */}
+      {/* Section 6: Verifiable Worked Numerical Example */}
       <Section>
         <SectionHeader
-          title="Chapter 6 — Complete Worked Numerical Example"
+          title="Complete Worked Numerical Example"
           subtitle="Trace a 2x2 SOM grid receiving a single 2D input sample by hand."
           badge="Manual Verification"
           badgeColor="from-indigo-500 to-purple-500"
@@ -736,10 +768,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 7: Industry Relevance & Recommender Qualifications */}
+      {/* Section 7: Industry Relevance & Recommender Qualifications */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 7 — Industry Applications & The Recommendation Question"
+          title="Industry Applications & The Recommendation Question"
           subtitle="Documented deployments in industrial monitoring, and an honest analysis of modern recommendation systems."
           badge="Applied Data Science"
           badgeColor="from-indigo-500 to-purple-500"
@@ -802,10 +834,10 @@ export function SOMJourney() {
         </div>
       </Section>
 
-      {/* Chapter 8 & 9: Implementation with MiniSom Comparison */}
+      {/* Section 8 & 9: Implementation with MiniSom Comparison */}
       <Section>
         <SectionHeader
-          title="Chapter 8 & 9 — Implementation & Real Library Ecosystems"
+          title="Implementation & Real Library Ecosystems"
           subtitle="Minimal NumPy implementation compared against the widely adopted MiniSom library."
           badge="Code Laboratory"
           badgeColor="from-indigo-500 to-purple-500"
@@ -855,10 +887,10 @@ som.train_random(data, num_iteration=1000)`}
         </div>
       </Section>
 
-      {/* Chapter 10: Strengths & Weaknesses */}
+      {/* Section 10: Strengths & Weaknesses */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 10 — Strengths, Weaknesses, and Modern Alternatives"
+          title="Strengths, Weaknesses, and Modern Alternatives"
           subtitle="Where SOM excels and where modern dimensionality reduction methods take over."
           badge="Evaluation"
           badgeColor="from-indigo-500 to-purple-500"
@@ -890,10 +922,10 @@ som.train_random(data, num_iteration=1000)`}
         </div>
       </Section>
 
-      {/* Chapter 11: Knowledge Check */}
+      {/* Section 11: Knowledge Check */}
       <Section>
         <SectionHeader
-          title="Chapter 11 — Knowledge Check"
+          title="Interactive Knowledge Check"
           subtitle="Test your comprehension of Kohonen maps, learning schedules, and topology preservation."
           badge="Assessment"
           badgeColor="from-indigo-500 to-purple-500"

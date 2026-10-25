@@ -49,10 +49,10 @@
 @layer components {
   /* Glass morphism cards */
   .glass-card {
-    @apply bg-void-100/60 backdrop-blur-xl border border-white/5 rounded-2xl;
+    @apply bg-void-100/60 backdrop-blur-xl border border-white/5 rounded-2xl transition-all duration-300;
   }
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:border-white/10 hover:bg-void-100/80;
+    @apply glass-card hover:border-white/15 hover:bg-void-100/80 hover:shadow-xl hover:-translate-y-1;
   }
 
   /* Model-specific glow effects */
@@ -69,6 +69,44 @@
     box-shadow: 0 0 40px rgba(244, 63, 94, 0.15), 0 0 80px rgba(244, 63, 94, 0.05);
   }
 
+  /* Active Synaptic Pulse Animation along SVG lines */
+  .synapse-flow {
+    stroke-dasharray: 6 6;
+    animation: syn-flow 1.5s linear infinite;
+  }
+  .synapse-flow-fast {
+    stroke-dasharray: 4 4;
+    animation: syn-flow 0.8s linear infinite;
+  }
+
+  /* Radar Beacon / Winner Aura */
+  .beacon-aura {
+    animation: beacon-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Shimmer gradient overlay */
+  .shimmer-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.03) 50%,
+      transparent 100%
+    );
+    transform: rotate(30deg);
+    animation: shimmer-sweep 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
   /* Section transitions */
   .section-divider {
     @apply w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-16;
@@ -79,7 +117,7 @@
     @apply w-full h-2 bg-void-200 rounded-full appearance-none cursor-pointer;
   }
   .control-slider::-webkit-slider-thumb {
-    @apply appearance-none w-4 h-4 bg-white rounded-full shadow-lg cursor-pointer;
+    @apply appearance-none w-4 h-4 bg-white rounded-full shadow-lg cursor-pointer transition-transform duration-150 hover:scale-125;
   }
 
   /* Code blocks */
@@ -89,12 +127,7 @@
 
   /* Equation display */
   .equation-block {
-    @apply glass-card p-6 my-6 flex items-center justify-center overflow-x-auto;
-  }
-
-  /* Neuron visualization base */
-  .neuron {
-    @apply rounded-full transition-all duration-300 flex items-center justify-center font-mono text-xs;
+    @apply glass-card p-6 my-6 flex items-center justify-center overflow-x-auto border-white/10 hover:border-white/20 transition-colors;
   }
 
   /* Reduced motion */
@@ -107,20 +140,107 @@
   }
 }
 
+@keyframes syn-flow {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes beacon-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%) rotate(30deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(30deg);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes laser-sweep {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.25), 0 0 30px rgba(244, 63, 94, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(244, 63, 94, 0.5), 0 0 60px rgba(244, 63, 94, 0.25);
+  }
+}
+
+@keyframes radar-ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-laser-sweep {
+  animation: laser-sweep 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-radar-ripple {
+  animation: radar-ripple 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
   }
   .text-gradient-gold {
-    @apply text-gradient bg-gradient-to-r from-amber-400 to-yellow-300;
+    @apply text-gradient bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500;
   }
   .text-gradient-emerald {
-    @apply text-gradient bg-gradient-to-r from-emerald-400 to-teal-300;
+    @apply text-gradient bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500;
   }
   .text-gradient-indigo {
-    @apply text-gradient bg-gradient-to-r from-indigo-400 to-purple-400;
+    @apply text-gradient bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-500;
   }
   .text-gradient-rose {
-    @apply text-gradient bg-gradient-to-r from-rose-400 to-pink-400;
+    @apply text-gradient bg-gradient-to-r from-rose-400 via-pink-400 to-rose-500;
   }
 }

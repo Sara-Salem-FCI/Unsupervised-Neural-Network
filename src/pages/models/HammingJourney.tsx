@@ -107,10 +107,10 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 1: The Problem */}
+      {/* Section 1: The Problem */}
       <Section>
         <SectionHeader
-          title="Chapter 1 — The Problem That Needed Solving"
+          title="The Problem That Needed Solving"
           subtitle="Matching noisy, partially corrupted binary signatures against a permanent repository of memories."
           badge="Context & Motivation"
           badgeColor="from-rose-500 to-pink-500"
@@ -135,9 +135,9 @@ export function HammingJourney() {
             </p>
           </div>
 
-          <Card className="border-rose-500/20">
+          <Card className="border-rose-500/20 hover:border-rose-500/40 hover:-translate-y-1 transition-all duration-300">
             <h3 className="text-base font-bold text-text-primary mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-rose-400" />
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse" />
               The Two-Stage Architecture
             </h3>
             <ul className="space-y-2 text-xs text-text-secondary">
@@ -152,10 +152,10 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 2: Intuition */}
+      {/* Section 2: Intuition */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 2 — Intuition: The Hall of Memories"
+          title="Intuition: The Hall of Memories"
           subtitle="Walking down a corridor of pristine museum exhibits holding a torn, degraded photograph."
           badge="Mental Model"
           badgeColor="from-rose-500 to-pink-500"
@@ -168,22 +168,31 @@ export function HammingJourney() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <div className="text-rose-400 font-bold text-lg mb-1">1. Parallel Comparison</div>
+            <Card className="hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-300">
+              <div className="text-rose-400 font-bold text-lg mb-1 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-rose-400/80 animate-ping" />
+                1. Parallel Comparison
+              </div>
               <p className="text-xs text-text-secondary leading-relaxed">
                 You hold up your artifact against every statue simultaneously, counting how many features match and how many conflict (Hamming distance).
               </p>
             </Card>
 
-            <Card>
-              <div className="text-rose-400 font-bold text-lg mb-1">2. Similarity Spotlight</div>
+            <Card className="hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-300">
+              <div className="text-rose-400 font-bold text-lg mb-1 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-rose-400/80 animate-ping" />
+                2. Similarity Spotlight
+              </div>
               <p className="text-xs text-text-secondary leading-relaxed">
                 Each statue turns on an overhead spotlight whose brightness equals its similarity score: <TeX tex="\text{Score} = n - \text{mismatches}" />.
               </p>
             </Card>
 
-            <Card>
-              <div className="text-rose-400 font-bold text-lg mb-1">3. The MAXNET Contest</div>
+            <Card className="hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-300">
+              <div className="text-rose-400 font-bold text-lg mb-1 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-rose-400/80 animate-ping" />
+                3. The MAXNET Contest
+              </div>
               <p className="text-xs text-text-secondary leading-relaxed">
                 The spotlights engage in reciprocal crossfire. Dimmer lights are extinguished first until only the single best-matching statue remains brilliantly illuminated!
               </p>
@@ -192,10 +201,10 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 3 & 4: Mathematics */}
+      {/* Section 4: Mathematics */}
       <Section>
         <SectionHeader
-          title="Chapter 4 — Mathematical Foundations"
+          title="Mathematical Foundations"
           subtitle="Binary vs bipolar representations, connection weights, and feedforward correlation."
           badge="Mathematical Foundations"
           badgeColor="from-rose-500 to-pink-500"
@@ -245,10 +254,10 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 5: Pattern Matching Laboratory */}
+      {/* Section 5: Pattern Matching Laboratory */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 5 — The Live Algorithm: Pattern Matching Lab"
+          title="The Live Algorithm: Pattern Matching Lab"
           subtitle="Click to flip bits on the input. Inject random noise, inspect real-time Hamming distances, and step through MAXNET competition."
           badge="Interactive Laboratory"
           badgeColor="from-rose-500 to-pink-500"
@@ -256,17 +265,23 @@ export function HammingJourney() {
 
         <div className="space-y-6">
           {/* Input Bitstrip Editor */}
-          <Card className="p-6">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <Card className="p-6 relative overflow-hidden border-rose-500/20 shadow-xl">
+            {/* Ambient subtle laser line sweeping across the bitstrip */}
+            <div className="absolute top-0 bottom-0 w-32 bg-gradient-to-r from-transparent via-rose-500/10 to-transparent pointer-events-none animate-laser-sweep" />
+
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-4 relative z-10">
               <div>
-                <h3 className="font-bold text-text-primary text-sm">Interactive Input Vector (8-bit)</h3>
+                <h3 className="font-bold text-text-primary text-sm flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+                  Interactive Input Vector (8-bit)
+                </h3>
                 <p className="text-xs text-text-muted">Click any bit below to toggle between 0 and 1</p>
               </div>
 
               <div className="flex items-center gap-3">
                 <button
                   onClick={handleAddNoise}
-                  className="px-3 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-xs font-semibold text-rose-300 transition-colors"
+                  className="px-3 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/25 active:scale-95 text-xs font-semibold text-rose-300 transition-all shadow-sm hover:shadow-rose-500/20"
                 >
                   Inject {(noiseRate * 100).toFixed(0)}% Noise
                 </button>
@@ -284,20 +299,20 @@ export function HammingJourney() {
               </div>
             </div>
 
-            {/* Clickable 8-bit Strip */}
-            <div className="flex justify-center gap-2 py-3">
+            {/* Clickable 8-bit Strip with tactile bouncy buttons */}
+            <div className="flex justify-center gap-2.5 py-4 relative z-10">
               {inputBits.map((bit, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleToggleInputBit(idx)}
-                  className={`w-11 h-14 rounded-xl border flex flex-col items-center justify-center font-mono font-bold transition-all transform hover:scale-105 ${
+                  className={`w-12 h-16 rounded-xl border flex flex-col items-center justify-center font-mono font-bold transition-all duration-200 transform active:scale-90 hover:scale-110 hover:-translate-y-1 ${
                     bit === 1
-                      ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-lg shadow-rose-500/20'
-                      : 'bg-void-200 border-white/10 text-text-dim'
+                      ? 'bg-rose-500/25 border-rose-400 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.35)]'
+                      : 'bg-void-200 border-white/10 text-text-dim hover:border-white/20'
                   }`}
                 >
                   <span className="text-[10px] text-text-dim">b{idx}</span>
-                  <span className="text-lg">{bit}</span>
+                  <span className="text-xl font-black">{bit}</span>
                 </button>
               ))}
             </div>
@@ -313,10 +328,10 @@ export function HammingJourney() {
               return (
                 <Card
                   key={pIdx}
-                  className={`border transition-all ${
+                  className={`border transition-all duration-300 ${
                     isBest
-                      ? 'border-rose-500/40 bg-rose-500/10 shadow-lg shadow-rose-500/10'
-                      : 'border-white/5 bg-void-200/50'
+                      ? 'border-rose-500/60 bg-rose-500/10 shadow-[0_0_25px_rgba(244,63,94,0.25)] ring-1 ring-rose-500/40 animate-pulse-glow'
+                      : 'border-white/5 bg-void-200/50 hover:border-white/15'
                   }`}
                 >
                   <div className="flex justify-between items-center mb-3">
@@ -324,7 +339,7 @@ export function HammingJourney() {
                       {PRESET_PATTERNS[pIdx].name}
                     </span>
                     {isBest && (
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-rose-500 text-void-500 font-bold uppercase">
+                      <span className="px-2 py-0.5 rounded text-[10px] bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold uppercase tracking-wider shadow-sm animate-pulse">
                         {isTied ? 'Tied Match' : 'Closest Match'}
                       </span>
                     )}
@@ -337,7 +352,7 @@ export function HammingJourney() {
                       return (
                         <div
                           key={bIdx}
-                          className={`h-7 rounded flex items-center justify-center font-mono text-xs font-bold ${
+                          className={`h-7 rounded flex items-center justify-center font-mono text-xs font-bold transition-all duration-200 hover:scale-105 ${
                             match
                               ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                               : 'bg-rose-500/30 text-rose-300 border border-rose-500/50'
@@ -361,6 +376,15 @@ export function HammingJourney() {
                       <span className="text-text-dim">Similarity (8 - d_H):</span>
                       <strong className="text-text-primary">{sim} / 8</strong>
                     </div>
+                    {/* Animated Meter Bar */}
+                    <div className="w-full h-1.5 bg-void-300 rounded-full overflow-hidden mt-1">
+                      <div
+                        className={`h-full transition-all duration-500 ease-out ${
+                          isBest ? 'bg-gradient-to-r from-rose-500 to-pink-400' : 'bg-void-100'
+                        }`}
+                        style={{ width: `${(sim / 8) * 100}%` }}
+                      />
+                    </div>
                   </div>
                 </Card>
               );
@@ -368,11 +392,11 @@ export function HammingJourney() {
           </div>
 
           {/* Stage 2: MAXNET Convergence Simulator */}
-          <Card className="p-6">
+          <Card className="p-6 border-white/10 hover:border-white/20 transition-all duration-300">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
                 <h3 className="font-bold text-text-primary text-sm flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-rose-400" />
+                  <Zap className="w-4 h-4 text-rose-400 animate-bounce" />
                   Stage 2: Recurrent MAXNET Layer
                 </h3>
                 <p className="text-xs text-text-muted">
@@ -384,22 +408,28 @@ export function HammingJourney() {
                 <button
                   onClick={handleStepCompetition}
                   disabled={competitionState.converged}
-                  className="px-3 py-1.5 bg-indigo-600 disabled:opacity-40 text-white rounded-lg text-xs font-semibold hover:bg-indigo-500 transition-colors"
+                  className="px-3.5 py-1.5 bg-gradient-to-r from-rose-500 to-pink-600 disabled:opacity-40 text-white rounded-lg text-xs font-semibold hover:brightness-110 active:scale-95 transition-all shadow-md shadow-rose-500/20"
                 >
                   Step Competition
                 </button>
                 <button
                   onClick={handleResetCompetition}
-                  className="px-3 py-1.5 bg-void-200 text-text-secondary rounded-lg text-xs font-semibold hover:bg-white/5 transition-colors"
+                  className="px-3 py-1.5 bg-void-200 text-text-secondary rounded-lg text-xs font-semibold hover:bg-white/10 active:scale-95 transition-all"
                 >
                   Reset
                 </button>
-                <span className="text-xs font-mono text-text-dim ml-2">
+                <span className="text-xs font-mono text-text-dim ml-2 flex items-center gap-1.5">
                   Step: {competitionState.iteration} |{' '}
                   {competitionState.converged ? (
-                    <strong className="text-emerald-400">CONVERGED</strong>
+                    <span className="inline-flex items-center gap-1 text-emerald-400 font-bold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      CONVERGED
+                    </span>
                   ) : (
-                    <strong className="text-rose-400">COMPETING...</strong>
+                    <span className="inline-flex items-center gap-1 text-rose-400 font-bold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
+                      COMPETING...
+                    </span>
                   )}
                 </span>
               </div>
@@ -413,14 +443,17 @@ export function HammingJourney() {
                   <div key={idx} className="space-y-1">
                     <div className="flex justify-between text-xs font-mono">
                       <span className="text-text-secondary">{PRESET_PATTERNS[idx].name}</span>
-                      <span className={isWinner ? 'text-rose-400 font-bold' : 'text-text-dim'}>
+                      <span className={isWinner ? 'text-rose-400 font-bold flex items-center gap-1' : 'text-text-dim'}>
+                        {isWinner && <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping" />}
                         {act.toFixed(4)}
                       </span>
                     </div>
                     <div className="w-full h-3 bg-void-200 rounded-full overflow-hidden">
                       <div
-                        className={`h-full transition-all duration-300 ${
-                          isWinner ? 'bg-rose-500' : 'bg-indigo-500/60'
+                        className={`h-full transition-all duration-500 ease-out ${
+                          isWinner
+                            ? 'bg-gradient-to-r from-rose-500 via-pink-400 to-amber-300 shadow-[0_0_12px_rgba(244,63,94,0.6)] animate-pulse'
+                            : 'bg-indigo-500/60'
                         }`}
                         style={{ width: `${Math.min(100, (act / 8) * 100)}%` }}
                       />
@@ -433,10 +466,10 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 6: Verifiable Worked Numerical Example */}
+      {/* Section 6: Verifiable Worked Numerical Example */}
       <Section>
         <SectionHeader
-          title="Chapter 6 — Complete Worked Numerical Example"
+          title="Complete Worked Numerical Example"
           subtitle="Manual step-by-step verification with 3 prototypes and a noisy 4-bit vector."
           badge="Manual Calculation"
           badgeColor="from-rose-500 to-pink-500"
@@ -448,9 +481,9 @@ export function HammingJourney() {
           </p>
 
           <div className="grid grid-cols-3 gap-3 text-xs font-mono">
-            <div className="p-3 bg-void-200 border border-white/5 rounded-lg">p_1 = [1, 1, 0, 0]</div>
-            <div className="p-3 bg-void-200 border border-white/5 rounded-lg">p_2 = [0, 1, 1, 0]</div>
-            <div className="p-3 bg-void-200 border border-white/5 rounded-lg">p_3 = [0, 0, 1, 1]</div>
+            <div className="p-3 bg-void-200 border border-white/5 rounded-lg hover:border-rose-500/30 transition-all">p_1 = [1, 1, 0, 0]</div>
+            <div className="p-3 bg-void-200 border border-white/5 rounded-lg hover:border-rose-500/30 transition-all">p_2 = [0, 1, 1, 0]</div>
+            <div className="p-3 bg-void-200 border border-white/5 rounded-lg hover:border-rose-500/30 transition-all">p_3 = [0, 0, 1, 1]</div>
           </div>
 
           <div className="p-4 bg-void-500 border border-white/5 rounded-xl space-y-3 font-mono text-xs text-text-secondary">
@@ -482,17 +515,17 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 7: Practical Applications & Limitations */}
+      {/* Section 7: Practical Applications & Limitations */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 7 — Practical Applications & Limitations"
+          title="Practical Applications & Limitations"
           subtitle="Binary signature matching and why classical Hamming nets cannot handle continuous deep learning embeddings."
           badge="Applied Engineering"
           badgeColor="from-rose-500 to-pink-500"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          <Card className="hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-300">
             <div className="text-xs font-mono uppercase tracking-wider text-rose-400 mb-2">
               Valid Application Domain
             </div>
@@ -509,7 +542,7 @@ export function HammingJourney() {
             </div>
           </Card>
 
-          <Card>
+          <Card className="hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-300">
             <div className="text-xs font-mono uppercase tracking-wider text-rose-400 mb-2">
               Architectural Limitation
             </div>
@@ -528,10 +561,10 @@ export function HammingJourney() {
         </div>
       </Section>
 
-      {/* Chapter 8: Implementation From Scratch */}
+      {/* Section 8: Implementation From Scratch */}
       <Section>
         <SectionHeader
-          title="Chapter 8 — Implementation From Scratch"
+          title="Implementation From Scratch"
           subtitle="Complete vectorized Python implementation of the two-stage Hamming network."
           badge="Code Laboratory"
           badgeColor="from-rose-500 to-pink-500"
@@ -583,10 +616,10 @@ def hamming_network(input_vec: np.ndarray, prototypes: np.ndarray, epsilon: floa
         </div>
       </Section>
 
-      {/* Chapter 10: Knowledge Check */}
+      {/* Section 10: Knowledge Check */}
       <Section className="bg-void-300 border-y border-white/5">
         <SectionHeader
-          title="Chapter 10 — Knowledge Check"
+          title="Interactive Knowledge Check"
           subtitle="Test your grasp of Hamming metrics and associative retrieval."
           badge="Assessment"
           badgeColor="from-rose-500 to-pink-500"
